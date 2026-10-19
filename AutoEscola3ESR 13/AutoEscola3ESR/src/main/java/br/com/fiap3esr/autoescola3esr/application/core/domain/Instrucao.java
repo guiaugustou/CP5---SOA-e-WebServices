@@ -1,5 +1,7 @@
+
 package br.com.fiap3esr.autoescola3esr.application.core.domain;
 
+import br.com.fiap3esr.autoescola3esr.adapter.out.repository.entity.InstrutorEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -15,6 +17,7 @@ import java.time.LocalDateTime;
 @Getter
 @EqualsAndHashCode(of = "id")
 public class Instrucao {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,8 +28,8 @@ public class Instrucao {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "instrutor_id")
-    private Instrutor instrutor;
+    private InstrutorEntity instrutor;
 
     @Column(name = "data_hora")
-    LocalDateTime dataHora;
+    private LocalDateTime dataHora;
 }
