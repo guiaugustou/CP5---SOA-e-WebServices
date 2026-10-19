@@ -1,3 +1,4 @@
+
 package br.com.fiap3esr.autoescola3esr.application.core.domain;
 
 import br.com.fiap3esr.autoescola3esr.shared.vo.endereco.Endereco;
@@ -14,9 +15,11 @@ import lombok.NoArgsConstructor;
 @Getter
 @EqualsAndHashCode(of = "id")
 public class Aluno {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
     private String email;
     private String telefone;
@@ -24,5 +27,45 @@ public class Aluno {
 
     @Embedded
     private Endereco endereco;
+
     private boolean ativo;
+
+    public void atualizarInformacoes(
+            String nome,
+            String email,
+            String telefone,
+            Endereco endereco) {
+
+        if (nome != null && !nome.isBlank()) {
+            this.nome = nome;
+        }
+
+        if (email != null && !email.isBlank()) {
+            this.email = email;
+        }
+
+        if (telefone != null && !telefone.isBlank()) {
+            this.telefone = telefone;
+        }
+
+        if (endereco != null) {
+            if (this.endereco == null) {
+                this.endereco = endereco;
+            } else {
+                this.endereco.atualizarInformacoes(
+                        endereco.getLogradouro(),
+                        endereco.getNumero(),
+                        endereco.getComplemento(),
+                        endereco.getBairro(),
+                        endereco.getCidade(),
+                        endereco.getUf(),
+                        endereco.getCep()
+                );
+            }
+        }
+    }
+
+    public void desativar() {
+        this.ativo = false;
+    }
 }

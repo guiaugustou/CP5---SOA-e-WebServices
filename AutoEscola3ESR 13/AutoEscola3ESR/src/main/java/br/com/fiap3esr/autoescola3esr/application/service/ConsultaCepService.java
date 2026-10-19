@@ -1,8 +1,11 @@
+
 package br.com.fiap3esr.autoescola3esr.application.service;
 
 import br.com.fiap3esr.autoescola3esr.adapter.in.controller.response.endereco.DadosEndereco;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class ConsultaCepService {
@@ -13,7 +16,8 @@ public class ConsultaCepService {
         String cepLimpo = cep.replaceAll("\\D", "");
 
         if (!cepLimpo.matches("\\d{8}")) {
-            throw new IllegalArgumentException(
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
                     "O CEP deve conter 8 números."
             );
         }
@@ -24,7 +28,8 @@ public class ConsultaCepService {
                 .body(DadosEndereco.class);
 
         if (endereco == null || Boolean.TRUE.equals(endereco.erro())) {
-            throw new IllegalArgumentException(
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
                     "CEP não encontrado."
             );
         }

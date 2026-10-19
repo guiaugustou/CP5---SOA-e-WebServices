@@ -35,7 +35,7 @@ public class SecurityConfig {
                             CorsConfiguration configuration = new CorsConfiguration();
                             configuration.setAllowedOriginPatterns(Arrays.asList(
                                     "https://www.enderecodomeufront.com.br",
-                                    "http://128.255.4.28:8080/autoescola",
+                                    "http://128.255.4.28:8080",
                                     "http://localhost:3000",
                                     "http://127.0.0.1:3000",
                                     "http://localhost:5500",
